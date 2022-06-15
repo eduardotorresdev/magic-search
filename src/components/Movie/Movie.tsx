@@ -16,7 +16,7 @@ const Movie = ({
     score,
 }: MovieProps) => (
     <div className={`movie ${skeleton && "movie--skeleton"}`}>
-        <span className="movie__loading">Carregando...</span>
+        <span className="movie__loading" hidden={!skeleton}>Carregando...</span>
         <div className="movie__media" hidden={skeleton}>
             <img src={image} alt={title} className="movie__img" />
         </div>
