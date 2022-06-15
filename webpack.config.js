@@ -38,10 +38,13 @@ const config = {
         use: ["style-loader", "css-loader", "postcss-loader", "sass-loader"],
       },
       {
-        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+        test: /\.svg$/i,
+        use: 'preact-svg-loader',
+      },
+      {
+        test: /\.(eot|ttf|woff|woff2|png|jpg|gif)$/i,
         type: "asset",
       },
-
       // Add your rules for custom modules here
       // Learn more about loaders from https://webpack.js.org/loaders/
     ],
@@ -55,6 +58,7 @@ const config = {
       "react/jsx-runtime": "preact/jsx-runtime",
       '@components': path.resolve(__dirname, 'src', 'components'),
       '@sass': path.resolve(__dirname, 'src', 'sass'),
+      '@img': path.resolve(__dirname, 'src', 'img'),
     },
   },
 };

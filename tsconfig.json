@@ -13,7 +13,9 @@
       "react/jsx-runtime": ["./node_modules/preact/jsx-runtime"],
       "@components/*": ["./src/components/*"],
       "@sass/*": ["./src/sass/*"],
+      "@img/*": ["./src/img/*"],
     }
   },
-  "files": ["src/index.tsx"]
+  "files": ["src/index.tsx"],
+  "include": ["src/@types"]
 }

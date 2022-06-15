@@ -2,14 +2,78 @@ import { render } from "preact";
 import Page from "@components/Page/Page";
 import Title from "@components/Title/Title";
 import Container from "@components/Container/Container";
+import Input from "@components/Input/Input";
+import Toolbar from "@components/Toolbar/Toolbar";
+import Button from "@components/Button/Button";
+import Switch, { SwitchRef } from "@components/Switch/Switch";
+import ThemeContext from "./contexts/ThemeContext";
 import "@sass/index.sass";
+import { useEffect, useRef, useState } from "preact/hooks";
 
-const App = () => (
-    <Page>
-        <Container>
-            <Title>magicSearch 🪄</Title>
-        </Container>
-    </Page>
-);
+const App = () => {
+    const osTheme = useRef<"light" | "dark">(
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light"
+    );
+    const [theme, setTheme] = useState<"light" | "dark" | "contrast">(
+        osTheme.current
+    );
+    const switchRef = useRef<SwitchRef | null>(null);
+
+    return (
+        <ThemeContext.Provider value={[theme, setTheme]}>
+            <Page>
+                <Container>
+                    <Toolbar>
+                        <Switch
+                            ref={switchRef}
+                            defaultValue={theme === "dark"}
+                            beforeChange={(status) => {
+                                if(theme === 'contrast') {
+                                    setTheme(status ? 'dark' : 'light')
+                                    return false;
+                                }
+
+                                return true;
+                            }}
+                            onChange={(status) => {
+                                setTheme(status ? "dark" : "light");
+                            }}
+                            title="Altera o tema ativo"
+                            name="altera_tema"
+                        />
+                        <div className="toolbar__section">
+                            Acessibilidade:
+                            <Button onClick={() => setTheme("light")}>
+                                A+
+                            </Button>
+                            <Button onClick={() => setTheme("dark")}>A-</Button>
+                            <Button
+                                isActive={theme === 'contrast'}
+                                onClick={() =>
+                                    setTheme((theme) =>
+                                        theme === "contrast"
+                                            ? switchRef.current.getState() ? 'dark' : 'light'
+                                            : "contrast"
+                                    )
+                                }
+                            >
+                                Alto contraste
+                            </Button>
+                        </div>
+                    </Toolbar>
+                    <Title>magic<strong>Search</strong> 🪄</Title>
+                    <Input
+                        name="terms"
+                        placeholder="Olá, o que vamos procurar hoje? 🤓"
+                        title="Buscar um filme"
+                        alt="Insira aqui as palavras-chave a serem buscadas"
+                    ></Input>
+                </Container>
+            </Page>
+        </ThemeContext.Provider>
+    );
+};
 
 render(<App />, document.querySelector("#root"));

@@ -1,0 +1,37 @@
+@use '@sass/variables' as *
+
+.input
+    display: grid
+    grid-template-columns: auto auto
+    background: var(--third-color)
+    border-radius: 10px
+    border: 3px solid var(--third-color)
+    transition: border 300ms ease
+
+.input--focus
+    border-color: var(--secondary-color)
+
+.input__field
+    min-width: 40vw
+    background: none
+    border: none
+    font-size: 26px
+    color: var(--primary-color)
+    padding: 15px 20px
+
+    &:focus
+        outline: none
+
+    &::placeholder
+        color: var(--primary-color)
+        opacity: 1
+
+.page--contrast
+    .input
+        background: var(--primary-color)
+
+    .input__field
+        color: var(--bg-color)
+
+        &::placeholder
+            color: var(--bg-color)

@@ -1,0 +1,21 @@
+.button
+    background: var(--primary-color)
+    color: var(--bg-color)
+    font-size: 16px
+    border: 3px solid var(--primary-color)
+    border-radius: 8px
+    padding: 4px 14px
+    cursor: pointer
+    transition: all 250ms ease
+
+    &:focus-visible
+        outline: 3px solid var(--primary-color)
+        outline-offset: 4px
+
+.button--enabled
+    background: var(--secondary-color)
+
+.page--contrast .button--enabled
+    background: var(--bg-color)
+    border-color: var(--primary-color)
+    color: var(--primary-color)

@@ -1,6 +1,29 @@
 @use '@sass/variables' as *
 
 .page
+    display: flex
+    flex-direction: column
+    align-items: center
     width: 100vw
     height: 100%
-    background-color: $blue-800
+    background-color: var(--bg-color)
+
+    --primary-color: #{$blue-800}
+    --secondary-color: #{$blue-600}
+    --third-color: #{$latte-800}
+    --bg-color: #{$latte-500}
+    --font-sz-title: 56px
+    --font-sz-label: 26px
+    --font-sz-helper: 16px
+
+.page--dark
+    --primary-color: #{$latte-500}
+    --secondary-color: #{$latte-500}
+    --third-color: #{$blue-600}
+    --bg-color: #{$blue-800}
+
+.page--contrast
+    --primary-color: white
+    --secondary-color: white
+    --third-color: black
+    --bg-color: black
