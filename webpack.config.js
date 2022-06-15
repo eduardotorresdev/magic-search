@@ -58,6 +58,7 @@ const config = {
       "react-dom": "preact/compat",
       "react/jsx-runtime": "preact/jsx-runtime",
       '@components': path.resolve(__dirname, 'src', 'components'),
+      '@contexts': path.resolve(__dirname, 'src', 'contexts'),
       '@sass': path.resolve(__dirname, 'src', 'sass'),
       '@img': path.resolve(__dirname, 'src', 'img'),
       '@hooks': path.resolve(__dirname, 'src', 'hooks'),

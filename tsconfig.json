@@ -12,6 +12,8 @@
       "react-dom": ["./node_modules/preact/compat/"],
       "react/jsx-runtime": ["./node_modules/preact/jsx-runtime"],
       "@components/*": ["./src/components/*"],
+      "@components": ["./src/components/index.ts"],
+      "@contexts": ["./src/contexts/index.ts"],
       "@sass/*": ["./src/sass/*"],
       "@img/*": ["./src/img/*"],
       "@hooks": ["./src/hooks/index.ts"],
