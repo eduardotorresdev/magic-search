@@ -60,6 +60,7 @@ const config = {
       '@components': path.resolve(__dirname, 'src', 'components'),
       '@sass': path.resolve(__dirname, 'src', 'sass'),
       '@img': path.resolve(__dirname, 'src', 'img'),
+      '@hooks': path.resolve(__dirname, 'src', 'hooks'),
     },
   },
 };

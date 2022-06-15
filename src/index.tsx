@@ -8,7 +8,8 @@ import Button from "@components/Button/Button";
 import Switch, { SwitchRef } from "@components/Switch/Switch";
 import ThemeContext from "./contexts/ThemeContext";
 import "@sass/index.sass";
-import { useEffect, useRef, useState } from "preact/hooks";
+import { useRef, useState } from "preact/hooks";
+import { useFontSize } from "@hooks";
 
 const App = () => {
     const osTheme = useRef<"light" | "dark">(
@@ -20,6 +21,8 @@ const App = () => {
         osTheme.current
     );
     const switchRef = useRef<SwitchRef | null>(null);
+    const { increment, decrement, canIncrement, canDecrement, percentage } =
+        useFontSize();
 
     return (
         <ThemeContext.Provider value={[theme, setTheme]}>
@@ -30,8 +33,8 @@ const App = () => {
                             ref={switchRef}
                             defaultValue={theme === "dark"}
                             beforeChange={(status) => {
-                                if(theme === 'contrast') {
-                                    setTheme(status ? 'dark' : 'light')
+                                if (theme === "contrast") {
+                                    setTheme(status ? "dark" : "light");
                                     return false;
                                 }
 
@@ -45,25 +48,40 @@ const App = () => {
                         />
                         <div className="toolbar__section">
                             Acessibilidade:
-                            <Button onClick={() => setTheme("light")}>
+                            <Button
+                                disabled={!canIncrement}
+                                onClick={() => increment()}
+                            >
                                 A+
                             </Button>
-                            <Button onClick={() => setTheme("dark")}>A-</Button>
                             <Button
-                                isActive={theme === 'contrast'}
+                                disabled={!canDecrement}
+                                onClick={() => decrement()}
+                            >
+                                A-
+                            </Button>
+                            <Button
+                                isActive={theme === "contrast"}
                                 onClick={() =>
                                     setTheme((theme) =>
                                         theme === "contrast"
-                                            ? switchRef.current.getState() ? 'dark' : 'light'
+                                            ? switchRef.current.getState()
+                                                ? "dark"
+                                                : "light"
                                             : "contrast"
                                     )
                                 }
                             >
                                 Alto contraste
                             </Button>
+                            <span className={`toolbar__float ${percentage !== 100 && 'toolbar__float--show'}`}>
+                                Tamanho do texto: {percentage}%
+                            </span>
                         </div>
                     </Toolbar>
-                    <Title>magic<strong>Search</strong> 🪄</Title>
+                    <Title>
+                        magic<strong>Search</strong> 🪄
+                    </Title>
                     <Input
                         name="terms"
                         placeholder="Olá, o que vamos procurar hoje? 🤓"

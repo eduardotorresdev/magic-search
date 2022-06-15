@@ -4,7 +4,8 @@ import "./Button.sass";
 interface ButtonProps {
     className?: string;
     isActive?: boolean;
-    onClick?: () => void;
+    onClick?: Function;
+    disabled?: boolean;
     children: ComponentChildren;
 }
 
@@ -12,12 +13,19 @@ const Button = ({
     className = "",
     isActive = false,
     onClick,
+    disabled,
     children,
 }: ButtonProps) => {
     return (
         <button
+            type='button'
             className={`button ${className} ${isActive && "button--enabled"}`}
-            onClick={onClick}
+            disabled={disabled}
+            onClick={(e) => {
+                if(disabled) return;
+
+                onClick && onClick(e);
+            }}
         >
             {children}
         </button>
