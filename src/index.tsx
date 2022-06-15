@@ -12,6 +12,7 @@ import {
 import ThemeContext from "./contexts/ThemeContext";
 import "@sass/index.sass";
 import { useEffect, useRef, useState } from "preact/hooks";
+import { useMovies } from "@hooks";
 
 const App = () => {
     const osTheme = useRef<"light" | "dark">(
@@ -22,11 +23,7 @@ const App = () => {
     const [theme, setTheme] = useState<"light" | "dark" | "contrast">(
         osTheme.current
     );
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        setTimeout(() => setLoading(false), 2000);
-    }, []);
+    const { loading, movies, search } = useMovies();
 
     return (
         <ThemeContext.Provider value={[theme, setTheme]}>
@@ -41,8 +38,9 @@ const App = () => {
                         placeholder="Olá, o que vamos procurar hoje? 🤓"
                         title="Buscar um filme"
                         alt="Insira aqui as palavras-chave a serem buscadas"
+                        onChange={(e) => search((e.target as any).value)}
                     ></Input>
-                    <List>
+                    <List show={loading || movies.length > 0}>
                         {loading ? (
                             <Fragment>
                                 <ListItem>
@@ -56,32 +54,16 @@ const App = () => {
                                 </ListItem>
                             </Fragment>
                         ) : (
-                            <Fragment>
+                            movies.map((movie) => (
                                 <ListItem>
                                     <Movie
-                                        image="https://image.tmdb.org/t/p/w92/p60VSQL7usdxztIGokJPpHmKWdU.jpg"
-                                        title="Spider-man: HomeComing"
-                                        genres={["Adventure", "Hero"]}
-                                        score={7.8}
+                                        image={movie.image}
+                                        title={movie.title}
+                                        genres={movie.genres}
+                                        score={movie.score}
                                     />
                                 </ListItem>
-                                <ListItem>
-                                    <Movie
-                                        image="https://image.tmdb.org/t/p/w92/p60VSQL7usdxztIGokJPpHmKWdU.jpg"
-                                        title="Spider-man: HomeComing"
-                                        genres={["Adventure", "Hero"]}
-                                        score={5.6}
-                                    />
-                                </ListItem>
-                                <ListItem>
-                                    <Movie
-                                        image="https://image.tmdb.org/t/p/w92/p60VSQL7usdxztIGokJPpHmKWdU.jpg"
-                                        title="Spider-man: HomeComing"
-                                        genres={["Adventure", "Hero"]}
-                                        score={9.1}
-                                    />
-                                </ListItem>
-                            </Fragment>
+                            ))
                         )}
                     </List>
                 </Container>

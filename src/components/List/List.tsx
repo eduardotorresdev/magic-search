@@ -2,11 +2,12 @@ import { ComponentChildren } from "preact";
 import "./List.sass";
 
 interface ListProps {
+    show: boolean;
     children: ComponentChildren;
 }
 
-const List = ({ children }: ListProps) => {
-    return <ul className="list">{children}</ul>;
+const List = ({ show, children }: ListProps) => {
+    return <ul className={`list ${show && 'list--show'}`}>{children}</ul>;
 };
 
 interface ListItemProps {

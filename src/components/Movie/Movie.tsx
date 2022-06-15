@@ -22,7 +22,7 @@ const Movie = ({
         </div>
         <h2 className="movie__title" hidden={skeleton}>{title}</h2>
         <span className="movie__score" hidden={skeleton}>
-            {score && `Classificação: ${score} 🍿`}
+            {score !== undefined && `Classificação: ${score} 🍿`}
         </span>
         <p className="movie__genre-label" hidden={skeleton}>Gêneros</p>
         <ul className="movie__genres" hidden={skeleton}>

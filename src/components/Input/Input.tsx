@@ -1,5 +1,6 @@
 import { ComponentChildren } from "preact";
 import { useState } from "preact/hooks";
+import { JSXInternal } from "preact/src/jsx";
 import "./Input.sass";
 
 interface InputProps {
@@ -9,16 +10,27 @@ interface InputProps {
     title?: string;
     alt?: string;
     children?: ComponentChildren;
+    onChange?: (e: JSXInternal.TargetedEvent<HTMLInputElement, Event>) => void;
 }
 
-const Input = ({ name, id, placeholder, title, alt, children }: InputProps) => {
+const Input = ({
+    name,
+    id,
+    placeholder,
+    title,
+    alt,
+    onChange,
+    children,
+}: InputProps) => {
     const [focus, setFocus] = useState(false);
 
     const toggleFocus = () => setFocus((focus) => !focus);
 
     return (
         <label className={`input ${focus && "input--focus"}`}>
-            <span className="input__label" hidden>{placeholder}</span>
+            <span className="input__label" hidden>
+                {placeholder}
+            </span>
             <input
                 type="text"
                 name={name}
@@ -29,6 +41,7 @@ const Input = ({ name, id, placeholder, title, alt, children }: InputProps) => {
                 alt={alt}
                 onFocus={toggleFocus}
                 onBlur={toggleFocus}
+                onChange={(e) => onChange && onChange(e)}
             />
             {children}
         </label>

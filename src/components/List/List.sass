@@ -9,7 +9,14 @@
     border-radius: 8px
     padding: 30px
     margin-top: 10px
+    opacity: 0
+    pointer-events: none
     overflow-y: scroll
+    transition: opacity 250ms ease
+
+    &--show
+        opacity: 1
+        pointer-events: all
 
 .list__item:not(:first-child)
     margin-top: 50px
